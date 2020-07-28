@@ -24,7 +24,7 @@ class DishDetail extends Component {
             );
     }
     renderComments(array) {
-        if (array.length != 0) {
+        if (array != null) {
             return (
                 <div className="col-12 col-md-5 m-1">
                     <h4>Comments</h4>
@@ -32,7 +32,7 @@ class DishDetail extends Component {
                         <ul className="list-unstyled">
                             <li>
                                 <p>{comment.comment}</p>
-                                <p>-- {comment.author} , {comment.date}</p>
+                                <p>-- {comment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</p>
                             </li>
                         </ul>
                     )
@@ -51,10 +51,12 @@ class DishDetail extends Component {
         let dish;
         if (this.props.selectedDish) {
             dish = (
+
                 <div className="row">
                     {this.renderDish(this.props.selectedDish)}
                     {this.renderComments(this.props.selectedDish.comments)}
                 </div>
+
             )
         } else {
             dish = <div></div>
